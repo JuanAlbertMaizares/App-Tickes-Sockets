@@ -1,13 +1,16 @@
 const TicketControl = require('../models/ticket-control');
 const ticketControl = new TicketControl();
 
-
+//nte . Controlador Set.
 const socketController = (socket) => {
-    // socket.on('disconnect', () => { });
-    socket.on('enviar-mensaje', ( payload, callback ) => {
-        const id = 123456789;
-        callback( id );
-        socket.broadcast.emit('enviar-mensaje', payload );
+    //mtd . Aca se declaran las emisiones y canales de eventos que se pueden recibir.
+    
+    socket.emit( 'ultimo-ticket', ticketControl.ultimo );
+    
+    // este canal, lado del server, recibe el pulso para crear un t, y retornar el numero.
+    socket.on('siguiente-ticket', ( payload, callback ) => {
+        const siguiente = ticketControl.siguiente();
+        callback(siguiente);
     })
 
 }

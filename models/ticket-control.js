@@ -51,7 +51,7 @@ class TicketControl {
         this.ultimo += 1;
         const ticket = new Ticket( this.ultimo, null);
         this.tickets.push(ticket);
-
+        console.log(this.tickets);
         this.guardarDB();
         return 'Ticket' + ticket.numero;
     }
