@@ -11,6 +11,9 @@ const socketController = (socket) => {
     socket.on('siguiente-ticket', ( payload, callback ) => {
         const siguiente = ticketControl.siguiente();
         callback(siguiente);
+    });
+    socket.on('atender-ticket', ({escritorio}, callback) => {
+        console.log(payload);
     })
 
 }

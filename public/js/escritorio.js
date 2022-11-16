@@ -35,5 +35,8 @@ btnCrear.addEventListener( 'click', () => {
     // socket.emit( 'siguiente-ticket', null, ( ticket ) => { //ticket es 'siguiente'
     //     lblNuevoTicket.innerText = ticket;
     // });
+    socket.emit('atender-ticket', {escritorio}, (payload) => {
+        console.log(payload);
+    });
 
 });
