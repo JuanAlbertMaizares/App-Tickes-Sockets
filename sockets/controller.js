@@ -12,8 +12,28 @@ const socketController = (socket) => {
         const siguiente = ticketControl.siguiente();
         callback(siguiente);
     });
+    // canal de evento para atender ticket
+    // recibe paramentros: el escritorio y una f
     socket.on('atender-ticket', ({escritorio}, callback) => {
-        console.log(payload);
+        if (!escritorio) {
+            return callback({
+                ok: false,
+                msg: 'El escritorio es obligatorio'
+            });
+        }
+        const ticket = ticketControl.atenderTicket(escritorio);
+        if (!ticket) {
+            callback({
+                ok:false,
+                msg: 'Ya no hay tickets pendientes'
+            });
+        } else {
+            callback({
+                ok:true,
+                ticket
+            })
+        }
+
     })
 
 }
