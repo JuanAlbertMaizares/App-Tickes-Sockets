@@ -2,6 +2,7 @@ const lblEscritorio = document.querySelector('h1');
 const btnAtender = document.querySelector('button');
 const lblTicket = document.getElementById('cliente');
 const divAlerta = document.getElementById('infoAlert');
+const lblPendientes = document.querySelector('#lblPendientes');
 //
 const searchParams = new URLSearchParams( window.location.search);
 
@@ -21,14 +22,19 @@ const socket = io();
 //tkt . Declaracion de canales de eventos.
 socket.on('connect', () => {
     btnAtender.disabled=false;
-    
 });
 
 socket.on('disconnect', () => {
     btnAtender.disabled=true;
-    
 });
-
+socket.on('tickets-pendientes', (pendientes)=>{
+    if (pendientes === 0) {
+        lblPendientes.style.display = 'none';
+    } else {
+        lblPendientes.style.display = '';
+        lblPendientes.innerText = pendientes;
+    }
+})
 socket.on('ultimo-ticket', (ultimo) => {
     // lblNuevoTicket.innerText = 'Ticket' + ultimo; 
 })
