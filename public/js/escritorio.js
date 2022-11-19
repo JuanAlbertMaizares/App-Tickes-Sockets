@@ -1,6 +1,6 @@
 const lblEscritorio = document.querySelector('h1');
 const btnAtender = document.querySelector('button');
-const lblTicket = document.querySelector('small');
+const lblTicket = document.getElementById('cliente');
 const divAlerta = document.getElementById('infoAlert');
 //
 const searchParams = new URLSearchParams( window.location.search);
@@ -41,7 +41,7 @@ btnAtender.addEventListener( 'click', () => {
         if (!ok) {
             return divAlerta.style.display = '';
         }
-        lblTicket.inner = 'Ticket' + ticket.numero;
+        lblTicket.innerText = 'Ticket' + ticket.numero;
     });
     
     

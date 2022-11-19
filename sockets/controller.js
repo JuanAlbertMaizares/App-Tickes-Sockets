@@ -6,6 +6,7 @@ const socketController = (socket) => {
     //mtd . Aca se declaran las emisiones y canales de eventos que se pueden recibir.
     
     socket.emit( 'ultimo-ticket', ticketControl.ultimo );
+    socket.emit( 'estado-actual', ticketControl.ultimos4 );
     
     // este canal, lado del server, recibe el pulso para crear un t, y retornar el numero.
     socket.on('siguiente-ticket', ( payload, callback ) => {
@@ -22,6 +23,9 @@ const socketController = (socket) => {
             });
         }
         const ticket = ticketControl.atenderTicket(escritorio);
+
+        socket.broadcast.emit( 'estado-actual', ticketControl.ultimos4 );
+
         if (!ticket) {
             callback({
                 ok:false,
